@@ -12,15 +12,14 @@ var gameState=PLAY;
 var gameOver;
 var invisible;
 var obstacleGroup1;
-var fly,flyloop;
+
 function preload(){
   birdupdown=loadAnimation("wingdown.png","wingup.png");
   cloudImage=loadImage("clouds.png");
   obstacle1im=loadImage("obstacle.png");
   obstacle2im=loadImage("obstacle2.png");
   gameOver=loadAnimation("gameOver.png");
-  fly=loadSound("wing.wav")
-  flyloop=loadSound("flyloop.mp3")
+  
 }
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -67,7 +66,7 @@ function draw() {
     
     if(keyDown("space")||touches.length>0){
       bird.y=bird.y-10;
-      fly.play();
+      
       touches=[ ];
     }
     bird.velocityY=3;
@@ -84,6 +83,12 @@ function draw() {
   if(gameState==END){
     obstacleGroup1.destroyEach();
     obstacleGroup2.destroyEach();
+    text("Click to play again",windowWidth/3,windowHeight/3)
+    if(keyWentDown("space")||touches.length>0){
+      score=0;
+      bird.addAnimation("bird",birdupdown)
+      gameState=PLAY;
+    }
   }
   textSize(30);
   
